@@ -10,7 +10,6 @@ class Game
   def start_game
     puts "This is Hangman. Your #{@hm.word.length}-letter word has been selected. You are allowed up to 7 mistakes. Good luck!"
     puts @hm.display
-    puts @hm.word
     puts "\n"
     guess_letter until @game_over
     play_again
@@ -18,9 +17,9 @@ class Game
 
   def guess_letter
     guess = ''
-    unless guess.length == 1
+    while guess.length != 1
       puts 'Guess a letter.'
-      guess = gets.chomp
+      guess = gets.downcase.chomp
     end
     update_display(guess)
   end
@@ -50,6 +49,7 @@ class Game
       puts 'You got it, well done!'
     elsif @hm.game_result == 'lose'
       puts 'You\'re out of guesses. Better luck next time!'
+      puts "The word was #{@hm.word}"
     end
     puts "\nEnter 'y' to play again or anything else to exit."
     ans = gets.chomp
@@ -102,4 +102,4 @@ class Hangman
   end
 end
 
-g = Game.new
+Game.new
